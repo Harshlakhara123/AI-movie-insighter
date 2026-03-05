@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AI Movie Insight Builder
 
-## Getting Started
+A modern, full-stack Next.js web application that takes an IMDb Movie ID and displays detailed movie information along with an AI-generated summary of audience sentiment.
 
-First, run the development server:
+![AI Movie Insight Builder](https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/film.svg)
 
+## Features
+
+- **Movie Details**: Fetches title, poster, cast, and plot using the OMDb API.
+- **AI Sentiment Analysis**: Uses the Gemini API (`@google/genai`) to generate a concise historical audience sentiment summary based on the movie data and returns an overall label (Positive / Negative / Mixed).
+- **Modern UI**: Designed with Tailwind CSS and Framer Motion for smooth, premium glassmorphism layouts and animations.
+- **Robust Error Handling**: Handles inline and API errors gracefully.
+
+## Tech Stack
+
+- **Frontend**: Next.js (React.js, App Router), Tailwind CSS, Framer Motion, Lucide React (Icons).
+- **Backend**: Next.js API Routes (`/api/movie`), Node.js.
+- **Data APIs**: 
+  - [OMDb API](http://www.omdbapi.com/) for movie metadata.
+  - [Google Gemini API](https://aistudio.google.com/) for sentiment analysis.
+- **Testing**: Jest testing framework for utility validation functions.
+
+## Assumptions Made
+- The IMDb ID follows the standard format (e.g., `tt0133093`).
+- If the Gemini API fails, the app falls back gracefully to display the movie details without sentiment, or uses a fallback "mixed" message to avoid breaking the core UI flow.
+
+## Prerequisites
+
+You need the following API keys to run the project locally:
+1. `OMDB_API_KEY`
+2. `GOOGLEAI_API_KEY`
+
+## Setup Instructions
+
+1. **Clone the repository** (if applicable):
+   ```bash
+   git clone <repository-url>
+   cd movie-insights
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables**:
+   Create a `.env.local` file in the root directory and add your API keys:
+   ```env
+   OMDB_API_KEY="your_omdb_key"
+   GOOGLEAI_API_KEY="your_google_gemini_key"
+   ```
+
+4. **Run the Development Server**:
+   ```bash
+   npm run dev
+   ```
+   Open `http://localhost:3000` in your browser.
+
+## Testing
+
+Run the included Jest unit tests (tests validate the IMDb ID format):
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run test
 ```
+(Note: we've aliased `npx jest` if using direct local configuration)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment Instructions (Vercel)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+This project is built directly on Next.js, meaning it is optimized for Vercel deployment.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Create a GitHub/GitLab/Bitbucket repository and push your code.
+2. Log in to [Vercel](https://vercel.com/) and click **Add New** -> **Project**.
+3. Import your Git repository.
+4. **Environment Variables**: During the deployment configuration step, ensure you add the two API keys in the Vercel Dashboard Environment Variables section:
+   - `OMDB_API_KEY`
+   - `GOOGLEAI_API_KEY`
+5. Click **Deploy**.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Vercel will automatically build the Next.js application and provide a live production URL.
